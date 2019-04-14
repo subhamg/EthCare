@@ -1,0 +1,5 @@
+var Patient2 = artifacts.require("Patient");
+
+module.exports = function(deployer) {
+  deployer.deploy(Patient2, "0x4e7d2917E4037087DA64873691663eAbD2e43D58");
+};
