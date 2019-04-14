@@ -1,10 +1,30 @@
 pragma solidity 0.5.3;
 import "./Bhagwaan.sol";
-import "./Doctor.sol";
 
 
-contract AbstractBhagwaan{
-    function checkDoc(address) public returns(bool);
+// contract AbstractBhagwaan{
+//     function checkDoc(address) public returns(bool);
+// }
+
+contract PatientGen {
+  address[] contracts;
+  address bhagw;
+  address user;
+
+  constructor(address bhagwaanAddrs) public payable{
+    user=msg.sender;
+    bhagw=bhagwaanAddrs;
+  }
+
+  function getPatientCount() public returns(uint patientcount){
+    return contracts.length;
+  }
+
+  function newPatient() public returns (address newContract){
+    Patient p = new Patient(bhagw);
+    contracts.push(address(p));
+    return address(p);
+  }
 }
 
 contract Patient {
@@ -19,7 +39,7 @@ contract Patient {
 
 
     constructor(address bhagwaanAddrs) public payable{
-        user=msg.sender;
+        user=tx.origin;
         bhag=bhagwaanAddrs;
     }
 
@@ -31,7 +51,7 @@ contract Patient {
 
     function giveAccess(address doc, bytes32 encryptedKey) public {
         require(msg.sender==user);
-        AbstractBhagwaan a = AbstractBhagwaan(bhag);
+        Bhagwaan a = Bhagwaan(bhag);
         require(a.checkDoc(doc));
         isAllowed[doc] = true;
         encryptedKeys[doc] = encryptedKey;
@@ -56,6 +76,10 @@ contract Patient {
         address doc = msg.sender;
         require(checkAllowed(doc));
         prescription.push(hashvalue);
+    }
+    
+    function getNumPrescriptions() public returns(uint){
+        return prescription.length;
     }
 
     // function getRecords(address patient) public return(string){

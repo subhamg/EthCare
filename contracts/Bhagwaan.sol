@@ -5,15 +5,15 @@ contract Bhagwaan{
     address govt;
     mapping(address => bytes32) pubKeyDoctor;
     mapping(address => bool) isDoctor;
-    address[] public Doctors;
+    // address[] public Doctors;
 
     constructor() public {
         govt = msg.sender;
     }
     // Requires a public getter for array size
-    function size() public returns (uint) {
-        return Doctors.length;
-    }
+    // function size() public returns (uint) {
+    //     return Doctors.length;
+    // }
 
     function checkDoc(address doc) public returns(bool){
         return isDoctor[doc];
