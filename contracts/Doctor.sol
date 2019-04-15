@@ -48,4 +48,13 @@ contract Doctor {
         require(isPatient[patient], "patient does not exists.");
         patientKeys[patient] = keyValue;
     }
+
+    function getAllowedPatientsNum() public view returns(uint){
+        return myPatients.length;
+    }
+
+    function getAllowedPatientByIndex(uint i) public view returns (address){
+        require(isPatient(myPatients[i]), "Patient no longer accessible.");
+        return myPatients[i];
+    }
 }

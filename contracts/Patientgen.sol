@@ -16,6 +16,7 @@ contract PatientGen {
     address[] contracts;
     address bhagw;
     address user;
+    address[] contractUsers;
 
     constructor(address bhagwaanAddrs) public payable{
       user=msg.sender;
@@ -27,9 +28,19 @@ contract PatientGen {
     }
 
     function newPatient() public returns (address newContract){
-      Patient p = new Patient(bhagw);
-      contracts.push(address(p));
-      return address(p);
+      bool userFound = false;
+      for (uint i=0; i<contractUsers.length; i++) {
+            if (msg.sender == contractUsers[i]){
+                userFound = true;
+            }
+      }
+      if (userFound) {
+        Patient p = new Patient(bhagw);
+        contracts.push(address(p));
+        contractUsers.push(msg.sender);
+        return address(p);
+      }
+      else return 0;
     }
 
     function getLastAddress() public view returns(address latestContract){
