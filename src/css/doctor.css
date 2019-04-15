@@ -3,7 +3,7 @@
 }
 
 .row {
-    width: 90%;
+    width: 60%;
     margin: 0 auto;
     text-align: center;
     margin-top: 15px;
@@ -59,3 +59,10 @@
   .panel-info {
       margin-top:  30px;
   }
+
+  .prescription-btn {
+      float: right;
+      padding: 2px 12px;
+  }
+
+ 
