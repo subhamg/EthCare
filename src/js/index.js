@@ -179,19 +179,19 @@ function registerPatient() {
     // localStorage.setItem("someVarKey2", contractAddress);
 
 
-    // Ajax event to server for executing script addPatient.sh
+     // Akash: Ajax event to server for executing script addPatient.sh
     $.ajax({
         data: {patientName: patientAddress, password: patientAddress},
         url: './addPatient.php',
         method: 'POST',
         success: function(msg) {
             alert('Added to database!');
+
+            if(patientAddress) {
+              window.location.href = "patient.html";
+            }
         }
     });
-
-    if(patientAddress) {
-        window.location.href = "patient.html";
-    }
 
 
 
@@ -224,18 +224,32 @@ function loginDoctor() {
 
 function registerDoctor() {
   doctorAddress = document.getElementById("new-doctor-address").value;
-  var  transactAddress = document.getElementById("transact-address").value;
-  var dKey = document.getElementById("dKey").value;
-  console.log(transactAddress);
-  console.log(doctorAddress);
-  console.log(dKey);
-  doctorGen.newDoctor(doctorAddress, dKey, {from: transactAddress, gas:3000000});
-  docContractAddress = doctorGen.getLastAddress();
-  localStorage.setItem("someVarKey", doctorAddress);
-  localStorage.setItem("someVarKey2", docContractAddress);
-  if(doctorAddress && transactAddress && dKey) {
-      window.location.href = "doctor.html";
-  }
+  // var  transactAddress = document.getElementById("transact-address").value;
+  // var dKey = document.getElementById("dKey").value;
+  // console.log(transactAddress);
+  // console.log(doctorAddress);
+  // console.log(dKey);
+  // doctorGen.newDoctor(doctorAddress, dKey, {from: transactAddress, gas:3000000});
+  // docContractAddress = doctorGen.getLastAddress();
+  // localStorage.setItem("someVarKey", doctorAddress);
+  // localStorage.setItem("someVarKey2", docContractAddress);
+
+
+
+  // Akash: Ajax event to server for executing script addDoctor.sh
+  $.ajax({
+      data: {doctorName: doctorAddress, password: doctorAddress},
+      url: './addDoctor.php',
+      method: 'POST',
+      success: function(msg) {
+          alert('Added to database!');
+          if(newDoctorAddress && transactAddress && dKey) {
+            window.location.href = "doctor.html";
+          }
+      }
+  });
+
+  
 }
 
 
