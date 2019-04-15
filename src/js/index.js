@@ -70,11 +70,15 @@ var patientGenContract = web3.eth.contract([
 var patientGen = patientGenContract.at('0x1132EBd5E9DA195F58fB56623f6C38E6A76de8ef');
 console.log(patientGen);
 
+// var successAlert = document.getElementById("myAlert");
+
 //Capture patient address and redirect to patient page.
 function loginPatient() {
     var patientAddress = document.getElementById("patient-address").value;
     document.getElementById("demo").innerHTML = patientAddress;
-
+    if(patientAddress) {
+        window.location.href = "patient.html";
+    }
 }
 
 //Create new contact list and redirect to patient page.
@@ -92,11 +96,16 @@ function registerPatient() {
     var tid = patientGen.newPatient({from: web3.eth.accounts[2], gas:3000000});
     var receipt = web3.eth.getTransactionReceipt(tid);
     console.log(receipt);
+    if(newPatientAddress) {
+        window.location.href = "patient.html";
+    }
 }
 
 //
 function loginDoctor() {
-    var doctorAddress = document.getElementById("doctore-address").value;
+    var doctorAddress = document.getElementById("doctor-address").value;
     document.getElementById("demo").innerHTML = doctorAddress;
-
+    if(doctorAddress) {
+        window.location.href = "doctor.html";
+    }
 }

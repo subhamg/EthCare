@@ -17,10 +17,10 @@
 					<div id="patient" class="tab-pane fade in active">
 						<label for="basic-url">Enter your address to Login</label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="patient-address" aria-describedby="basic-addon3">
+							<input type="text" class="form-control" id="patient-address" aria-describedby="basic-addon3"  required>
 							<span class="input-group-btn">
 								<button class="btn btn-primary login-button" type="submit" onclick="loginPatient()">
-									Login
+									Login 
 								</button>
                             </span>
 						</div>
@@ -41,7 +41,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" id="doctor-address" aria-describedby="basic-addon3">
 							<span class="input-group-btn ">
-								<button class="btn btn-primary login-button" type="submit" onclick="doctorAddress()">
+								<button class="btn btn-primary login-button" type="submit" onclick="loginDoctor()">
                                     Login
                                 </button>
                             </span>

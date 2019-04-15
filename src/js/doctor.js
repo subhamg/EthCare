@@ -99,3 +99,6 @@ console.log(doctor);
 var numOfElements = doctor.getPatientsNum.call();
 for (let i = 0; i < numOfElements; i++) {
   var elem = doctor.getPatientsNum(i);
+  document.getElementById("patient-address").innerHTML = elem;
+
+}
