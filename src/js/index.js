@@ -174,9 +174,9 @@ function registerPatient() {
     patientAddress = document.getElementById("new-patient-address").value;
     console.log("address pat -"+patientAddress);
     localStorage.setItem("someVarKey", patientAddress);
-    // patientGen.newPatient({from: String(patientAddress), gas:3000000});
-    // contractAddress = patientGen.getLastAddress();
-    // localStorage.setItem("someVarKey2", contractAddress);
+    patientGen.newPatient({from: String(patientAddress), gas:3000000});
+    contractAddress = patientGen.getLastAddress();
+    localStorage.setItem("someVarKey2", contractAddress);
 
 
      // Akash: Ajax event to server for executing script addPatient.sh
@@ -224,15 +224,15 @@ function loginDoctor() {
 
 function registerDoctor() {
   doctorAddress = document.getElementById("new-doctor-address").value;
-  // var  transactAddress = document.getElementById("transact-address").value;
-  // var dKey = document.getElementById("dKey").value;
-  // console.log(transactAddress);
-  // console.log(doctorAddress);
-  // console.log(dKey);
-  // doctorGen.newDoctor(doctorAddress, dKey, {from: transactAddress, gas:3000000});
-  // docContractAddress = doctorGen.getLastAddress();
-  // localStorage.setItem("someVarKey", doctorAddress);
-  // localStorage.setItem("someVarKey2", docContractAddress);
+  var  transactAddress = document.getElementById("transact-address").value;
+  var dKey = document.getElementById("dKey").value;
+  console.log(transactAddress);
+  console.log(doctorAddress);
+  console.log(dKey);
+  doctorGen.newDoctor(doctorAddress, dKey, {from: transactAddress, gas:3000000});
+  docContractAddress = doctorGen.getLastAddress();
+  localStorage.setItem("someVarKey", doctorAddress);
+  localStorage.setItem("someVarKey2", docContractAddress);
 
 
 
