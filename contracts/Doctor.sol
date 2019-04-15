@@ -1,11 +1,11 @@
 pragma solidity 0.5.3;
 import "./Bhagwaan.sol";
-import "./Patient.sol";
+import "./Patientgen.sol";
 
 
-contract AbstractPatient{
-    function pushHash(bytes32) public;
-}
+// contract AbstractPatient{
+//     function pushHash(bytes32) public;
+// }
 
 contract Doctor {
     //Address of the school administrator
@@ -25,7 +25,8 @@ contract Doctor {
 
     function commitprescription(address pat, bytes32 hashvalue) public{
         // Patient.pushhash()///call push hash function uswing given address
-        AbstractPatient my_a = AbstractPatient(pat);
+        require(msg.sender==user);
+        Patient my_a = Patient(pat);
         my_a.pushHash(hashvalue);
     }
 }
