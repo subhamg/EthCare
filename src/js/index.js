@@ -156,23 +156,44 @@ var docContractAddress;
 function loginPatient() {
     patientAddress = document.getElementById("patient-address").value;
     contractAddress = document.getElementById("contract-address").value;
-    // localStorage.setItem("vOneLocalStorage", patientAddress)
+    localStorage.setItem("someVarKey", patientAddress);
+    localStorage.setItem("someVarKey2", contractAddress);
+    console.log('addresses');
+    console.log(patientAddress);
+    console.log(contractAddress);
     if(patientAddress) {
-        window.location.href = "patient.html";
+      window.location.href = "patient.html";
+    }
+    // x = document.getElementById("home");
+    // y = document.getElementById('patient')
+    // if(x.style.display === 'display') {
+    //   x.style.display = 'none';
+    // } else if(y.style.display === 'none') {
+    //   y.style.display = 'display';
+    // };
+
     }
 
     // document.getElementById("patientName").innerHTML = g[0];
-}
+
 
 //Create new contact list and redirect to patient page.
 function registerPatient() {
     patientAddress = document.getElementById("new-patient-address").value;
     console.log("address pat -"+patientAddress);
+    localStorage.setItem("someVarKey", patientAddress);
     patientGen.newPatient({from: String(patientAddress), gas:3000000});
     contractAddress = patientGen.getLastAddress();
+    localStorage.setItem("someVarKey2", contractAddress);
     if(patientAddress) {
         window.location.href = "patient.html";
     }
+}
+
+function showPatientAddress() {
+  document.getElementById('patientAddress').innerHTML = patientAddress;
+  console.log(patientAddress);
+  document.getElementById('contractAddress').innerHTML = contractAddress;
 }
 
 //
@@ -181,7 +202,8 @@ function loginDoctor() {
     docContractAddress = document.getElementById("docContractAddress").value;
     document.getElementById("demo").innerHTML = doctorAddress;
     if(doctorAddress) {
-        window.location.href = "doctor.html";
+      document.getElementById("home").style.display = none;
+      document.getElementById('patient').style.dilsplay = block;
     }
 }
 

@@ -8921,10 +8921,16 @@
       "links": {},
       "address": "0xe2B93D3f84a9b156336AE558E5A4de7Ce345Ed91",
       "transactionHash": "0x2499bd663597cf018a699f20b6c1432b14b67b7c7d76203e88eef7f7d496266a"
+    },
+    "1555350825307": {
+      "events": {},
+      "links": {},
+      "address": "0xe2B93D3f84a9b156336AE558E5A4de7Ce345Ed91",
+      "transactionHash": "0x2499bd663597cf018a699f20b6c1432b14b67b7c7d76203e88eef7f7d496266a"
     }
   },
   "schemaVersion": "3.0.6",
-  "updatedAt": "2019-04-15T16:06:43.417Z",
+  "updatedAt": "2019-04-15T17:54:00.546Z",
   "devdoc": {
     "methods": {}
   },
