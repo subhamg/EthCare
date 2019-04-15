@@ -63,7 +63,27 @@
 								</div>
 								<button type="submit" class="btn btn-primary" onclick="loginDoctor()">Submit</button>
 							  </form>
-                    </div>
+							  <hr>
+						<p class="or">OR</p>
+						<label for="basic-url">Create new address to Register</label>
+						<form class="form-inline">
+		
+								<div class="form-group">
+								  <label class="sr-only" for="new-doctor-address">Account address:</label>
+								  <input type="text" class="form-control" id="new-doctor-address" placeholder="Enter doctor address" name="new-doctor-address">
+								</div>
+								<div class="form-group">
+								  <label class="sr-only" for="dKey">Public Key:</label>
+								  <input type="text" class="form-control" id="dKey" placeholder="Enter public key" name="dKey">
+								</div>
+								<div class="form-group" style="margin-top: 15px;" >
+										<label class="sr-only" for="transact-account">Transact Account:</label>
+										<input type="text" class="form-control" id="transact-account" placeholder="Enter transact account" name="transact-account">
+									  </div>
+								<button type="submit" class="btn btn-primary"style="margin-top: 15px;" onclick="registerDoctor()">Submit</button>
+							  </form>
+					</div>
+					
 				</div>
 				<p id="demo"></p>
 			</div>

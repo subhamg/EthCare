@@ -107,6 +107,17 @@ function loginDoctor() {
     }
 }
 
+function registerDoctor() {
+  var newDoctorAddress = document.getElementById("new-doctor-address").value;
+  var  transactAddress = document.getElementById("transact-address").value;
+  var dKey = document.getElementById("dKey").value;
+  patientGen.newPatient({from: web3.eth.accounts[2], gas:3000000});
+  contractAddress = patientGen.getLastAddress();
+  if(newDoctorAddress && transactAddress && dKey) {
+      window.location.href = "doctor.html";
+  }
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 var doctorContract = web3.eth.contract([
