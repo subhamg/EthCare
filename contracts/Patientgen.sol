@@ -25,6 +25,10 @@ contract PatientGen {
     contracts.push(address(p));
     return address(p);
   }
+
+  function getLastAddress() public returns(address latestContract){
+    return contracts[contracts.length-1];
+  }
 }
 
 contract Patient {
@@ -64,6 +68,10 @@ contract Patient {
         encryptedKeys[doc] = 0;
     }
 
+    // function getAllowedDocs() public returns (address[] allowedDocs){
+    //   return allowed;
+    // }
+
     // function updateKey(bytes32 newKey) private{
     //
     // }
@@ -77,7 +85,7 @@ contract Patient {
         require(checkAllowed(doc));
         prescription.push(hashvalue);
     }
-    
+
     function getNumPrescriptions() public returns(uint){
         return prescription.length;
     }
