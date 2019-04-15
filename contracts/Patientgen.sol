@@ -6,29 +6,33 @@ import "./Bhagwaan.sol";
 //     function checkDoc(address) public returns(bool);
 // }
 
+contract AbstractDoctor {
+    function addPatient(address) public;
+}
+
 contract PatientGen {
-  address[] contracts;
-  address bhagw;
-  address user;
+    address[] contracts;
+    address bhagw;
+    address user;
 
-  constructor(address bhagwaanAddrs) public payable{
-    user=msg.sender;
-    bhagw=bhagwaanAddrs;
-  }
+    constructor(address bhagwaanAddrs) public payable{
+      user=msg.sender;
+      bhagw=bhagwaanAddrs;
+    }
 
-  function getPatientCount() public returns(uint patientcount){
-    return contracts.length;
-  }
+    function getPatientCount() public returns(uint patientcount){
+      return contracts.length;
+    }
 
-  function newPatient() public returns (address newContract){
-    Patient p = new Patient(bhagw);
-    contracts.push(address(p));
-    return address(p);
-  }
+    function newPatient() public returns (address newContract){
+      Patient p = new Patient(bhagw);
+      contracts.push(address(p));
+      return address(p);
+    }
 
-  function getLastAddress() public returns(address latestContract){
-    return contracts[contracts.length-1];
-  }
+    function getLastAddress() public returns(address latestContract){
+      return contracts[contracts.length-1];
+    }
 }
 
 contract Patient {
@@ -60,6 +64,8 @@ contract Patient {
         isAllowed[doc] = true;
         encryptedKeys[doc] = encryptedKey;
         allowed.push(doc);
+        AbstractDoctor doctor = AbstractDoctor(doc);
+        doctor.addPatient(address(this));
     }
 
     function revokeAccess(address doc) public {
@@ -68,9 +74,12 @@ contract Patient {
         encryptedKeys[doc] = 0;
     }
 
-    // function getAllowedDocs() public returns (address[] allowedDocs){
-    //   return allowed;
-    // }
+    function getAllowedDocsNum() public returns(uint){
+      return allowed.length;
+    }
+    function getAllowedDocByIndex(uint i) public returns (address){
+      return allowed[i];
+    }
 
     // function updateKey(bytes32 newKey) private{
     //
