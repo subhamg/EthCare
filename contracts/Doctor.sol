@@ -11,6 +11,7 @@ contract Doctor {
     //Address of the school administrator
     address user;
     mapping(address => bool) isPatient;
+    mapping(address => bytes32) patientKeys;
     address[] myPatients;
 
     constructor() public payable{
@@ -30,16 +31,21 @@ contract Doctor {
         my_a.pushHash(hashvalue);
     }
 
-    function addPatient(address patient) public{
+    function addPatient(address patient, bytes32 encryptedKey) public{
+        require(!isPatient[patient], "patient already added.");
         myPatients.push(patient);
         isPatient[patient] = true;
+        patientKeys[patient] = encryptedKey;
     }
 
-    function getPatientsNum() public returns(uint){
-      return myPatients.length;
+    function removePatient(address patient) public {
+        require(msg.sender == patient, "Only patient can remove him/her self.");
+        isPatient[patient] = false;
     }
 
-    function getPatientByIndex(uint i) public returns (address){
-      return myPatients[i];
+    function updatePatientKey(address patient, bytes32 keyValue) public{
+        require(msg.sender == patient, "Only patient can update key value in doc.");
+        require(isPatient[patient], "patient does not exists.");
+        patientKeys[patient] = keyValue;
     }
 }
