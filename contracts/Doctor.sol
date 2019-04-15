@@ -7,6 +7,45 @@ import "./Patientgen.sol";
 //     function pushHash(bytes32) public;
 // }
 
+contract DoctorGen{
+  address[] contracts;
+  address bhagw;
+  address govt;
+  address[] contractUsers;
+
+  constructor(address bhagwaanadd) public payable{
+    govt=msg.sender;
+    bhagw = bhagwaanadd;
+  }
+
+  function getDoctorCount() public view returns(uint doccount){
+    return contracts.length;
+  }
+
+  function newDoctor(address docAcc, bytes32 pubKey) public returns (address newContract){
+    require(msg.sender == govt);
+    bool userFound = false;
+    for (uint i=0; i<contractUsers.length; i++) {
+          if (docAcc == contractUsers[i]){
+              userFound = true;
+          }
+    }
+    if (userFound) {
+      Doctor d = new Doctor(docAcc);
+      Bhagwaan bh = Bhagwaan(bhagw);
+      bh.addDoc(address(d), pubKey);
+      contracts.push(address(d));
+      contractUsers.push(docAcc);
+      return address(d);
+    }
+    else return address(0);
+  }
+
+  function getLastAddress() public view returns(address latestContract){
+    return contracts[contracts.length-1];
+  }
+}
+
 contract Doctor {
     //Address of the school administrator
     address user;
@@ -14,8 +53,8 @@ contract Doctor {
     mapping(address => bytes32) patientKeys;
     address[] myPatients;
 
-    constructor() public payable{
-        user=msg.sender;
+    constructor(address docAcc) public payable{
+        user=docAcc;
     }
 
     function kill() public{
@@ -54,7 +93,7 @@ contract Doctor {
     }
 
     function getAllowedPatientByIndex(uint i) public view returns (address){
-        require(isPatient(myPatients[i]), "Patient no longer accessible.");
+        require(isPatient[myPatients[i]], "Patient no longer accessible.");
         return myPatients[i];
     }
 }

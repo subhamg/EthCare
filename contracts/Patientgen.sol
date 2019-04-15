@@ -40,7 +40,7 @@ contract PatientGen {
         contractUsers.push(msg.sender);
         return address(p);
       }
-      else return 0;
+      else return address(0);
     }
 
     function getLastAddress() public view returns(address latestContract){
