@@ -186,7 +186,6 @@ function registerPatient() {
     // contractAddress = patientGen.getLastAddress();
     // localStorage.setItem("someVarKey2", contractAddress);
 
-    alert('I am here');
 
     // Ajax event to server for executing script addPatient.sh
     $.ajax({
@@ -194,11 +193,10 @@ function registerPatient() {
         url: './addPatient.php',
         method: 'POST',
         success: function(msg) {
-            alert('Request Done');
+            alert('Added to database!');
         }
     });
 
-    alert('I am down');
     if(patientAddress) {
         window.location.href = "patient.html";
     }
