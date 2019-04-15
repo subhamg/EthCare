@@ -72,9 +72,9 @@ contract Patient {
 
 
     function giveAccess(address doc, bytes32 encryptedKey) public {
-        require(msg.sender==user);
+        // require(msg.sender==user);
         // Bhagwaan a = Bhagwaan(bhag);
-        require(a.checkDoc(doc));
+        // require(a.checkDoc(doc));
         isAllowed[doc] = true;
         allowed.push(doc);
         AbstractDoctor doctor = AbstractDoctor(doc);

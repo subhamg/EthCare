@@ -5,8 +5,10 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/doctor.css">
     </head>
-    <body>
+    <body onload="showDoctorAddress()">
         <div class="container">
+          <p id="doctorAddress"></p>
+          <p id="docContractAddress"></p>
             <div class="row">
                     <h1 class="patient-heading">Doctor Profile</h1>
 
@@ -20,18 +22,7 @@
                                             <li class="list-group-item" id="patient-address"><button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li>
                                             <!-- <li class="list-group-item">Cras justo odio <button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li>
                                             <li class="list-group-item">Cras justo odio <button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li>
-                                		<!-- <
-						<hr>patient
-						<p class="or">OR</p>
-						<label for="basic-url">Create new address to Register</label>
-						<div class="input-group">
-							<input type="text" class="form-control" id="new-patient-address" aria-describedby="basic-addon3">
-							<span class="input-group-btn">
-								<button class="btn btn-primary login-button" type="button" onclick="registerPatient()">
-									Register
-								</button>
-							</span>
-						</div> -->            <li class="list-group-item">Cras justo odio <button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li> -->
+                                	      <li class="list-group-item">Cras justo odio <button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li> -->
 
 
                                           </ul>
@@ -77,12 +68,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/web3.min.js"></script>
-        <script src="js/index.js"></script>
+
         <script>
                 $(document).ready(function(){
                   $('[data-toggle1="tooltip"]').tooltip();
                 });
+                var doctorAddress = localStorage.getItem("someVarKey");
+                var docContractAddress = localStorage.getItem("someVarKey2");
                 </script>
+                  <script src="js/index.js"></script>
 
     </body>
 </html>

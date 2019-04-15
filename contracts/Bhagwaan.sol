@@ -20,7 +20,7 @@ contract Bhagwaan{
     }
 
     function addDoc(address doc, bytes32 pubKey) public {
-        require(msg.sender==govt);
+        // require(tx.origin==govt);
         isDoctor[doc] = true;
         setPubKey(doc, pubKey);
     }
@@ -31,7 +31,7 @@ contract Bhagwaan{
     }
 
     function setPubKey(address doc, bytes32 docPub) private{
-        require(msg.sender==govt);
+        // require(msg.sender==govt);
         require(checkDoc(doc));
         pubKeyDoctor[doc] = docPub;
     }

@@ -17,8 +17,7 @@ var patientGenContract = web3.eth.contract([
     ],
     "payable": true,
     "stateMutability": "payable",
-    "type": "constructor",
-    "signature": "constructor"
+    "type": "constructor"
   },
   {
     "constant": true,
@@ -32,8 +31,7 @@ var patientGenContract = web3.eth.contract([
     ],
     "payable": false,
     "stateMutability": "view",
-    "type": "function",
-    "signature": "0xc190665b"
+    "type": "function"
   },
   {
     "constant": false,
@@ -47,8 +45,7 @@ var patientGenContract = web3.eth.contract([
     ],
     "payable": false,
     "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xe74911da"
+    "type": "function"
   },
   {
     "constant": true,
@@ -62,8 +59,7 @@ var patientGenContract = web3.eth.contract([
     ],
     "payable": false,
     "stateMutability": "view",
-    "type": "function",
-    "signature": "0x71a2ee52"
+    "type": "function"
   }
 ]);
 
@@ -81,8 +77,7 @@ var doctorGenContract = web3.eth.contract([
     ],
     "payable": true,
     "stateMutability": "payable",
-    "type": "constructor",
-    "signature": "constructor"
+    "type": "constructor"
   },
   {
     "constant": true,
@@ -96,8 +91,7 @@ var doctorGenContract = web3.eth.contract([
     ],
     "payable": false,
     "stateMutability": "view",
-    "type": "function",
-    "signature": "0x79111c1c"
+    "type": "function"
   },
   {
     "constant": false,
@@ -120,8 +114,7 @@ var doctorGenContract = web3.eth.contract([
     ],
     "payable": false,
     "stateMutability": "nonpayable",
-    "type": "function",
-    "signature": "0xc13cbc08"
+    "type": "function"
   },
   {
     "constant": true,
@@ -135,8 +128,7 @@ var doctorGenContract = web3.eth.contract([
     ],
     "payable": false,
     "stateMutability": "view",
-    "type": "function",
-    "signature": "0x71a2ee52"
+    "type": "function"
   }
 ]);
 
@@ -196,14 +188,22 @@ function showPatientAddress() {
   document.getElementById('contractAddress').innerHTML = contractAddress;
 }
 
+function showDoctorAddress() {
+  document.getElementById('doctorAddress').innerHTML = doctorAddress;
+  console.log(patientAddress);
+  document.getElementById('docContractAddress').innerHTML = docContractAddress;
+}
+
 //
 function loginDoctor() {
     doctorAddress = document.getElementById("doctor-address").value;
     docContractAddress = document.getElementById("docContractAddress").value;
-    document.getElementById("demo").innerHTML = doctorAddress;
+    localStorage.setItem("someVarKey", doctorAddress);
+    localStorage.setItem("someVarKey2", docContractAddress);
     if(doctorAddress) {
-      document.getElementById("home").style.display = none;
-      document.getElementById('patient').style.dilsplay = block;
+    //   document.getElementById("home").style.display = none;
+      window.location.href = "doctor.html";
+    //   document.getElementById('patient').style.dilsplay = block;
     }
 }
 
@@ -211,9 +211,14 @@ function registerDoctor() {
   doctorAddress = document.getElementById("new-doctor-address").value;
   var  transactAddress = document.getElementById("transact-address").value;
   var dKey = document.getElementById("dKey").value;
-  doctorGen.newDoctor(newDoctorAddress, dKey, {from: transactAddress, gas:3000000});
+  console.log(transactAddress);
+  console.log(doctorAddress);
+  console.log(dKey);
+  doctorGen.newDoctor(doctorAddress, dKey, {from: transactAddress, gas:3000000});
   docContractAddress = doctorGen.getLastAddress();
-  if(newDoctorAddress && transactAddress && dKey) {
+  localStorage.setItem("someVarKey", doctorAddress);
+  localStorage.setItem("someVarKey2", docContractAddress);
+  if(doctorAddress && transactAddress && dKey) {
       window.location.href = "doctor.html";
   }
 }
@@ -375,9 +380,9 @@ function givePresciption()
 
 
 
-var numOfElements = doctor.getPatientsNum;
+var numOfElements = doctor.getAllowedPatientsNum();
 for (let i = 0; i < numOfElements; i++) {
-  var elem = doctor.getPatientsNum(i);
+  var elem = doctor.getAllowedPatientByIndex(i);
   document.getElementById("patient-address").innerHTML = elem;
 }
 
@@ -561,19 +566,30 @@ console.log(patient);
 //
 
 function giveAcess(){
-  var docAddress = document.getElementById("doctor-address").value;
+  var doc1Address = document.getElementById("gadoctor-address").value;
   var key = document.getElementById("key").value;
-  Patient.giveAccess(docAddress,key);
+  console.log('maa kichut');
+  console.log(patientAddress);
+  console.log(doc1Address);
+  console.log(key);
+  patient.giveAccess(doc1Address,key,{from:patientAddress, gas:3000000});
 }
 
 function revokeAddress(){
   var docAddress = document.getElementById("revokeAddress").value;
-  Patient.revokeAccess(docAddress);
+  console.log('revokedone');
+  console.log(patientAddress);
+  console.log(docAddress);
+  patient.revokeAccess(docAddress,{from:patientAddress, gas:3000000});
 }
 
 
-var numOfElements = patient.getAllowedDocsNum;
+var numOfElements = patient.getAllowedDocsNum();
+console.log('allowed docs - '+numOfElements);
 for (let i = 0; i < numOfElements; i++) {
-  var elem = Patient.getAllowedDocByIndex(i);
-  document.getElementById("doctor-address").innerHTML = elem;
+  var elem = patient.getAllowedDocByIndex(i);
+  console.log('found this');
+  console.log(elem);
+  console.log('khatam bc');
+  document.getElementById("vdoctor-address").innerHTML = elem;
 }

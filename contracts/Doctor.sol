@@ -23,7 +23,7 @@ contract DoctorGen{
   }
 
   function newDoctor(address docAcc, bytes32 pubKey) public returns (address newContract){
-    require(msg.sender == govt);
+    require(msg.sender == govt,"not government");
     bool userFound = false;
     for (uint i=0; i<contractUsers.length; i++) {
           if (docAcc == contractUsers[i]){
