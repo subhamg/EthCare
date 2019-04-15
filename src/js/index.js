@@ -99,13 +99,8 @@ function registerPatient() {
 
 //
 function loginDoctor() {
-<<<<<<< Updated upstream
-    doctorAddress = document.getElementById("doctor-address").value;
-    //update contract address
-=======
     var doctorAddress = document.getElementById("doctor-address").value;
     var docContractAddress = document.getElementById("docContractAddress").value;
->>>>>>> Stashed changes
     document.getElementById("demo").innerHTML = doctorAddress;
     if(doctorAddress) {
         window.location.href = "doctor.html";
