@@ -45,11 +45,13 @@ contract Patient {
     mapping(address => bool) private isAllowed;
     address[] allowed;
     address bhag;
+    Bhagwaan a;
 
 
     constructor(address bhagwaanAddrs) public payable{
         user=tx.origin;
         bhag=bhagwaanAddrs;
+        a = Bhagwaan(bhag);
     }
 
     function kill() public{
@@ -60,7 +62,7 @@ contract Patient {
 
     function giveAccess(address doc, bytes32 encryptedKey) public {
         require(msg.sender==user);
-        Bhagwaan a = Bhagwaan(bhag);
+        // Bhagwaan a = Bhagwaan(bhag);
         require(a.checkDoc(doc));
         isAllowed[doc] = true;
         allowed.push(doc);
@@ -107,6 +109,10 @@ contract Patient {
         return prescription.length;
     }
 
+    function getPubKey(address doc) public view returns(bytes32) {
+        // require(a.checkDoc(doc));
+        return a.getPubKey(doc);
+    }
     // function getRecords(address patient) public return(string){
     //
     // }
