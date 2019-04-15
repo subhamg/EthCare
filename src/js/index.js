@@ -73,11 +73,13 @@ var patientAddress;
 var doctorAddress;
 var contractAddress;
 
+// var successAlert = document.getElementById("myAlert");
+
 //Capture patient address and redirect to patient page.
 function loginPatient() {
-    patientAddress = document.getElementById("patient-address").value;
-    //update contract adddress from input
-    document.getElementById("demo").innerHTML = patientAddress;
+    var patientAddress = document.getElementById("patient-address").value;
+    var contractAddress = document.getElementById("contract-address").value;
+    // localStorage.setItem("vOneLocalStorage", patientAddress)
     if(patientAddress) {
         window.location.href = "patient.html";
     }
@@ -97,8 +99,13 @@ function registerPatient() {
 
 //
 function loginDoctor() {
+<<<<<<< Updated upstream
     doctorAddress = document.getElementById("doctor-address").value;
     //update contract address
+=======
+    var doctorAddress = document.getElementById("doctor-address").value;
+    var docContractAddress = document.getElementById("docContractAddress").value;
+>>>>>>> Stashed changes
     document.getElementById("demo").innerHTML = doctorAddress;
     if(doctorAddress) {
         window.location.href = "doctor.html";
