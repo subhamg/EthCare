@@ -30,7 +30,7 @@ contract DoctorGen{
               userFound = true;
           }
     }
-    if (userFound) {
+    if (!userFound) {
       Doctor d = new Doctor(docAcc);
       Bhagwaan bh = Bhagwaan(bhagw);
       bh.addDoc(address(d), pubKey);
@@ -95,5 +95,9 @@ contract Doctor {
     function getAllowedPatientByIndex(uint i) public view returns (address){
         require(isPatient[myPatients[i]], "Patient no longer accessible.");
         return myPatients[i];
+    }
+
+    function getPatientKey(address patAddress) public returns(bytes32){
+        return patientKeys[patAddress];
     }
 }

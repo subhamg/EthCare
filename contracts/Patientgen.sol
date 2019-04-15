@@ -34,7 +34,7 @@ contract PatientGen {
                 userFound = true;
             }
       }
-      if (userFound) {
+      if (!userFound) {
         Patient p = new Patient(bhagw);
         contracts.push(address(p));
         contractUsers.push(msg.sender);

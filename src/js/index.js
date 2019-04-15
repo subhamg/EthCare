@@ -21,7 +21,7 @@ var patientGenContract = web3.eth.contract([
     "signature": "constructor"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "getPatientCount",
     "outputs": [
@@ -31,7 +31,7 @@ var patientGenContract = web3.eth.contract([
       }
     ],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function",
     "signature": "0xc190665b"
   },
@@ -51,7 +51,7 @@ var patientGenContract = web3.eth.contract([
     "signature": "0xe74911da"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "getLastAddress",
     "outputs": [
@@ -61,24 +61,101 @@ var patientGenContract = web3.eth.contract([
       }
     ],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function",
     "signature": "0x71a2ee52"
   }
 ]);
 
 var patientGen = patientGenContract.at('0x1132EBd5E9DA195F58fB56623f6C38E6A76de8ef');
+console.log('patientGen');
 console.log(patientGen);
+
+var doctorGenContract = web3.eth.contract([
+  {
+    "inputs": [
+      {
+        "name": "bhagwaanadd",
+        "type": "address"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "constructor",
+    "signature": "constructor"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getDoctorCount",
+    "outputs": [
+      {
+        "name": "doccount",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x79111c1c"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "docAcc",
+        "type": "address"
+      },
+      {
+        "name": "pubKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "newDoctor",
+    "outputs": [
+      {
+        "name": "newContract",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0xc13cbc08"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getLastAddress",
+    "outputs": [
+      {
+        "name": "latestContract",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function",
+    "signature": "0x71a2ee52"
+  }
+]);
+
+var doctorGen = doctorGenContract.at('0xe2B93D3f84a9b156336AE558E5A4de7Ce345Ed91');
+console.log("doctorGen contract");
+console.log(doctorGen);
+
+
 var patientAddress;
 var doctorAddress;
 var contractAddress;
+var docContractAddress;
 
 // var successAlert = document.getElementById("myAlert");
 
 //Capture patient address and redirect to patient page.
 function loginPatient() {
-    var patientAddress = document.getElementById("patient-address").value;
-    var contractAddress = document.getElementById("contract-address").value;
+    patientAddress = document.getElementById("patient-address").value;
+    contractAddress = document.getElementById("contract-address").value;
     // localStorage.setItem("vOneLocalStorage", patientAddress)
     if(patientAddress) {
         window.location.href = "patient.html";
@@ -89,18 +166,19 @@ function loginPatient() {
 
 //Create new contact list and redirect to patient page.
 function registerPatient() {
-    var newPatientAddress = document.getElementById("new-patient-address").value;
-    patientGen.newPatient({from: web3.eth.accounts[2], gas:3000000});
+    patientAddress = document.getElementById("new-patient-address").value;
+    console.log("address pat -"+patientAddress);
+    patientGen.newPatient({from: String(patientAddress), gas:3000000});
     contractAddress = patientGen.getLastAddress();
-    if(newPatientAddress) {
+    if(patientAddress) {
         window.location.href = "patient.html";
     }
 }
 
 //
 function loginDoctor() {
-    var doctorAddress = document.getElementById("doctor-address").value;
-    var docContractAddress = document.getElementById("docContractAddress").value;
+    doctorAddress = document.getElementById("doctor-address").value;
+    docContractAddress = document.getElementById("docContractAddress").value;
     document.getElementById("demo").innerHTML = doctorAddress;
     if(doctorAddress) {
         window.location.href = "doctor.html";
@@ -108,11 +186,11 @@ function loginDoctor() {
 }
 
 function registerDoctor() {
-  var newDoctorAddress = document.getElementById("new-doctor-address").value;
+  doctorAddress = document.getElementById("new-doctor-address").value;
   var  transactAddress = document.getElementById("transact-address").value;
   var dKey = document.getElementById("dKey").value;
-  patientGen.newPatient({from: web3.eth.accounts[2], gas:3000000});
-  contractAddress = patientGen.getLastAddress();
+  doctorGen.newDoctor(newDoctorAddress, dKey, {from: transactAddress, gas:3000000});
+  docContractAddress = doctorGen.getLastAddress();
   if(newDoctorAddress && transactAddress && dKey) {
       window.location.href = "doctor.html";
   }
@@ -122,7 +200,12 @@ function registerDoctor() {
 ///////////////////////////////////////////////////////////////////////////////////////////
 var doctorContract = web3.eth.contract([
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "name": "docAcc",
+        "type": "address"
+      }
+    ],
     "payable": true,
     "stateMutability": "payable",
     "type": "constructor"
@@ -160,6 +243,10 @@ var doctorContract = web3.eth.contract([
       {
         "name": "patient",
         "type": "address"
+      },
+      {
+        "name": "encryptedKey",
+        "type": "bytes32"
       }
     ],
     "name": "addPatient",
@@ -170,14 +257,14 @@ var doctorContract = web3.eth.contract([
   },
   {
     "constant": false,
-    "inputs": [],
-    "name": "getPatientsNum",
-    "outputs": [
+    "inputs": [
       {
-        "name": "",
-        "type": "uint256"
+        "name": "patient",
+        "type": "address"
       }
     ],
+    "name": "removePatient",
+    "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -186,11 +273,43 @@ var doctorContract = web3.eth.contract([
     "constant": false,
     "inputs": [
       {
+        "name": "patient",
+        "type": "address"
+      },
+      {
+        "name": "keyValue",
+        "type": "bytes32"
+      }
+    ],
+    "name": "updatePatientKey",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getAllowedPatientsNum",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
         "name": "i",
         "type": "uint256"
       }
     ],
-    "name": "getPatientByIndex",
+    "name": "getAllowedPatientByIndex",
     "outputs": [
       {
         "name": "",
@@ -198,11 +317,31 @@ var doctorContract = web3.eth.contract([
       }
     ],
     "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "patAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getPatientKey",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   }
 ]);
-var doctor = doctorContract.at(doctorAddress);//change to contract address
+var doctor = doctorContract.at(docContractAddress);//change to contract address
+console.log("doctor contract");
 console.log(doctor);
 
 //
@@ -277,6 +416,24 @@ var patientContract = web3.eth.contract([
   },
   {
     "constant": false,
+    "inputs": [
+      {
+        "name": "doc",
+        "type": "address"
+      },
+      {
+        "name": "encryptedKey",
+        "type": "bytes32"
+      }
+    ],
+    "name": "updateKey",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [],
     "name": "getAllowedDocsNum",
     "outputs": [
@@ -286,11 +443,11 @@ var patientContract = web3.eth.contract([
       }
     ],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
         "name": "i",
@@ -305,11 +462,11 @@ var patientContract = web3.eth.contract([
       }
     ],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
         "name": "doc",
@@ -324,7 +481,7 @@ var patientContract = web3.eth.contract([
       }
     ],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -342,7 +499,7 @@ var patientContract = web3.eth.contract([
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [],
     "name": "getNumPrescriptions",
     "outputs": [
@@ -352,11 +509,31 @@ var patientContract = web3.eth.contract([
       }
     ],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "doc",
+        "type": "address"
+      }
+    ],
+    "name": "getPubKey",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
     "type": "function"
   }
 ]);
 var patient = patientContract.at(contractAddress);//change to contract address
+console.log("patient contract");
 console.log(patient);
 
 //
