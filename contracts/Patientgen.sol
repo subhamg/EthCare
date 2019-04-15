@@ -7,7 +7,9 @@ import "./Bhagwaan.sol";
 // }
 
 contract AbstractDoctor {
-    function addPatient(address) public;
+    function addPatient(address, bytes32) public;
+    function updatePatientKey(address, bytes32) public;
+    function removePatient(address) public;
 }
 
 contract PatientGen {
@@ -20,7 +22,7 @@ contract PatientGen {
       bhagw=bhagwaanAddrs;
     }
 
-    function getPatientCount() public returns(uint patientcount){
+    function getPatientCount() public view returns(uint patientcount){
       return contracts.length;
     }
 
@@ -30,7 +32,7 @@ contract PatientGen {
       return address(p);
     }
 
-    function getLastAddress() public returns(address latestContract){
+    function getLastAddress() public view returns(address latestContract){
       return contracts[contracts.length-1];
     }
 }
@@ -42,7 +44,6 @@ contract Patient {
     bytes32[] prescription;
     mapping(address => bool) private isAllowed;
     address[] allowed;
-    mapping(address => bytes32) encryptedKeys;//corresponding encrypted symmetric key for doctors
     address bhag;
 
 
@@ -62,30 +63,37 @@ contract Patient {
         Bhagwaan a = Bhagwaan(bhag);
         require(a.checkDoc(doc));
         isAllowed[doc] = true;
-        encryptedKeys[doc] = encryptedKey;
         allowed.push(doc);
         AbstractDoctor doctor = AbstractDoctor(doc);
-        doctor.addPatient(address(this));
+        doctor.addPatient(address(this), encryptedKey);
     }
 
     function revokeAccess(address doc) public {
         require(msg.sender==user);
+        require(checkAllowed(doc));
         isAllowed[doc] = false;
-        encryptedKeys[doc] = 0;
+
+        AbstractDoctor doctor = AbstractDoctor(doc);
+        doctor.removePatient(address(this));
+        // encryptedKeys[doc] = 0;
     }
 
-    function getAllowedDocsNum() public returns(uint){
-      return allowed.length;
-    }
-    function getAllowedDocByIndex(uint i) public returns (address){
-      return allowed[i];
+    function updateKey(address doc, bytes32 encryptedKey) public{
+        require(msg.sender == user, "Only patient can do it.");
+        require(checkAllowed(doc));
+        AbstractDoctor doctor = AbstractDoctor(doc);
+        doctor.updatePatientKey(address(this), encryptedKey);
     }
 
-    // function updateKey(bytes32 newKey) private{
-    //
-    // }
+    function getAllowedDocsNum() public view returns(uint){
+        return allowed.length;
+    }
+    function getAllowedDocByIndex(uint i) public view returns (address){
+        require(checkAllowed(allowed[i]), "Doctor no longer allowed.");
+        return allowed[i];
+    }
 
-    function checkAllowed(address doc) public returns(bool){
+    function checkAllowed(address doc) public view returns(bool){
         return isAllowed[doc] ;
     }
 
@@ -95,7 +103,7 @@ contract Patient {
         prescription.push(hashvalue);
     }
 
-    function getNumPrescriptions() public returns(uint){
+    function getNumPrescriptions() public view returns(uint){
         return prescription.length;
     }
 
