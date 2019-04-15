@@ -71,14 +71,16 @@ var patientGen = patientGenContract.at('0x1132EBd5E9DA195F58fB56623f6C38E6A76de8
 console.log(patientGen);
 
 // var successAlert = document.getElementById("myAlert");
-
+var vOneLocalStorage;
 //Capture patient address and redirect to patient page.
 function loginPatient() {
     var patientAddress = document.getElementById("patient-address").value;
-    document.getElementById("demo").innerHTML = patientAddress;
+    localStorage.setItem("vOneLocalStorage", patientAddress)
     if(patientAddress) {
         window.location.href = "patient.html";
     }
+
+    // document.getElementById("patientName").innerHTML = g[0];
 }
 
 //Create new contact list and redirect to patient page.

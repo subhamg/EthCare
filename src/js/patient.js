@@ -163,3 +163,9 @@ for (let i = 0; i < numOfElements; i++) {
   var elem = Patient.getAllowedDocByIndex(i);
   document.getElementById("doctor-address").innerHTML = elem;
 }
+
+var vOneLS = localStorage.getItem("vOneLocalStorage ");  
+
+var variableTwo = vOneLS; 
+
+console.log(variableTwo);
