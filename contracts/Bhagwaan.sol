@@ -15,21 +15,22 @@ contract Bhagwaan{
     //     return Doctors.length;
     // }
 
-    function checkDoc(address doc) public returns(bool){
+    function checkDoc(address doc) public view returns(bool){
         return isDoctor[doc];
     }
 
-    function addDoc(address doc) public {
+    function addDoc(address doc, bytes32 pubKey) public {
         require(msg.sender==govt);
         isDoctor[doc] = true;
+        setPubKey(doc, pubKey);
     }
 
-    function getPubKey(address doc) public returns(bytes32){
+    function getPubKey(address doc) public view returns(bytes32){
         require(checkDoc(doc));
         return pubKeyDoctor[doc];
     }
 
-    function setPubKey(address doc, bytes32 docPub) public returns(bytes32){
+    function setPubKey(address doc, bytes32 docPub) private{
         require(msg.sender==govt);
         require(checkDoc(doc));
         pubKeyDoctor[doc] = docPub;
