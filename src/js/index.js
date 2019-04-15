@@ -182,12 +182,29 @@ function registerPatient() {
     patientAddress = document.getElementById("new-patient-address").value;
     console.log("address pat -"+patientAddress);
     localStorage.setItem("someVarKey", patientAddress);
-    patientGen.newPatient({from: String(patientAddress), gas:3000000});
-    contractAddress = patientGen.getLastAddress();
-    localStorage.setItem("someVarKey2", contractAddress);
+    // patientGen.newPatient({from: String(patientAddress), gas:3000000});
+    // contractAddress = patientGen.getLastAddress();
+    // localStorage.setItem("someVarKey2", contractAddress);
+
+    alert('I am here');
+
+    // Ajax event to server for executing script addPatient.sh
+    $.ajax({
+        data: {patientName: patientAddress, password: patientAddress},
+        url: './addPatient.php',
+        method: 'POST',
+        success: function(msg) {
+            alert('Request Done');
+        }
+    });
+
+    alert('I am down');
     if(patientAddress) {
         window.location.href = "patient.html";
     }
+
+
+
 }
 
 function showPatientAddress() {
