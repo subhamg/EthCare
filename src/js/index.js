@@ -81,6 +81,8 @@ function loginPatient() {
     if(patientAddress) {
         window.location.href = "patient.html";
     }
+
+    // document.getElementById("patientName").innerHTML = g[0];
 }
 
 //Create new contact list and redirect to patient page.
