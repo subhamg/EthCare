@@ -1,138 +1,138 @@
 // Web3 = require('web3');
-if (typeof web3 !== 'undefined') {
-  web3 = new Web3(web3.currentProvider);
-} else {
+//if (typeof web3 !== 'undefined') {
+//  web3 = new Web3(web3.currentProvider);
+//} else {
   // set the provider you want from Web3.providers
-  web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:6545"));
-}
+web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:6545"));
+//}
 
 web3.eth.defaultAccount = web3.eth.accounts[0];
 var patientGenContract = web3.eth.contract([
-  {
-    "inputs": [
-      {
-        "name": "bhagwaanAddrs",
-        "type": "address"
-      }
-    ],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "constructor"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getPatientCount",
-    "outputs": [
-      {
-        "name": "patientcount",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "newPatient",
-    "outputs": [
-      {
-        "name": "newContract",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getLastAddress",
-    "outputs": [
-      {
-        "name": "latestContract",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  }
-]);
+    {
+      "inputs": [
+        {
+          "name": "bhagwaanAddrs",
+          "type": "address"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getPatientCount",
+      "outputs": [
+        {
+          "name": "patientcount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "newPatient",
+      "outputs": [
+        {
+          "name": "newContract",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getLastAddress",
+      "outputs": [
+        {
+          "name": "latestContract",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]);
 
-var patientGen = patientGenContract.at('0x1132EBd5E9DA195F58fB56623f6C38E6A76de8ef');
+var patientGen = patientGenContract.at('0xf72B21Aa33B3e5925074880A81Ef0DCBA8216E3b');
 console.log('patientGen');
 console.log(patientGen);
 
 var doctorGenContract = web3.eth.contract([
-  {
-    "inputs": [
-      {
-        "name": "bhagwaanadd",
-        "type": "address"
-      }
-    ],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "constructor"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getDoctorCount",
-    "outputs": [
-      {
-        "name": "doccount",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "docAcc",
-        "type": "address"
-      },
-      {
-        "name": "pubKey",
-        "type": "bytes32"
-      }
-    ],
-    "name": "newDoctor",
-    "outputs": [
-      {
-        "name": "newContract",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getLastAddress",
-    "outputs": [
-      {
-        "name": "latestContract",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  }
-]);
+    {
+      "inputs": [
+        {
+          "name": "bhagwaanadd",
+          "type": "address"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getDoctorCount",
+      "outputs": [
+        {
+          "name": "doccount",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "docAcc",
+          "type": "address"
+        },
+        {
+          "name": "pubKey",
+          "type": "string"
+        }
+      ],
+      "name": "newDoctor",
+      "outputs": [
+        {
+          "name": "newContract",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getLastAddress",
+      "outputs": [
+        {
+          "name": "latestContract",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]);
 
-var doctorGen = doctorGenContract.at('0xe2B93D3f84a9b156336AE558E5A4de7Ce345Ed91');
+var doctorGen = doctorGenContract.at('0xeE42e406947a892B3620569e062FB72952Ec986c');
 console.log("doctorGen contract");
 console.log(doctorGen);
 
@@ -243,159 +243,159 @@ function registerDoctor() {
       method: 'POST',
       success: function(msg) {
           alert('Added to database!');
-          if(newDoctorAddress && transactAddress && dKey) {
+          if(doctorAddress && transactAddress && dKey) {
             window.location.href = "doctor.html";
           }
       }
   });
 
-  
+
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 var doctorContract = web3.eth.contract([
-  {
-    "inputs": [
-      {
-        "name": "docAcc",
-        "type": "address"
-      }
-    ],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "constructor"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "kill",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "pat",
-        "type": "address"
-      },
-      {
-        "name": "hashvalue",
-        "type": "bytes32"
-      }
-    ],
-    "name": "commitprescription",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "patient",
-        "type": "address"
-      },
-      {
-        "name": "encryptedKey",
-        "type": "bytes32"
-      }
-    ],
-    "name": "addPatient",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "patient",
-        "type": "address"
-      }
-    ],
-    "name": "removePatient",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "patient",
-        "type": "address"
-      },
-      {
-        "name": "keyValue",
-        "type": "bytes32"
-      }
-    ],
-    "name": "updatePatientKey",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getAllowedPatientsNum",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "i",
-        "type": "uint256"
-      }
-    ],
-    "name": "getAllowedPatientByIndex",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "patAddress",
-        "type": "address"
-      }
-    ],
-    "name": "getPatientKey",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
-]);
+    {
+      "inputs": [
+        {
+          "name": "docAcc",
+          "type": "address"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "kill",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "pat",
+          "type": "address"
+        },
+        {
+          "name": "hashvalue",
+          "type": "bytes32"
+        }
+      ],
+      "name": "commitprescription",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "patient",
+          "type": "address"
+        },
+        {
+          "name": "encryptedKey",
+          "type": "string"
+        }
+      ],
+      "name": "addPatient",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "patient",
+          "type": "address"
+        }
+      ],
+      "name": "removePatient",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "patient",
+          "type": "address"
+        },
+        {
+          "name": "keyValue",
+          "type": "string"
+        }
+      ],
+      "name": "updatePatientKey",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getAllowedPatientsNum",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "i",
+          "type": "uint256"
+        }
+      ],
+      "name": "getAllowedPatientByIndex",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "patAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getPatientKey",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]);
 var doctor = doctorContract.at(docContractAddress);//change to contract address
 console.log("doctor contract");
 console.log(doctor);
@@ -404,7 +404,37 @@ console.log(doctor);
 
 function givePresciption()
 {
+  var data = document.getElementById("prescription").value;
+  var patientId = document.getElementById("patientId").value;
+  // alert(data);
+  // alert(patientId);
+  alert(docContractAddress);
+  encryptedKey = doctor.getPatientKey(patientId);
+  var pubKey = read("pubkey.pub");
+  alert(pubKey);
 
+
+  var myString   = "https://www.titanesmedellin.com/";
+  var myPassword = "myPassword";
+  var encrypt = new JSEncrypt();
+  // var pubkey = document.getElementById("prescription").value();
+  pubKey = "-----BEGIN PUBLIC KEY-----\
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlOJu6TyygqxfWT7eLtGDwajtN\
+FOb9I5XRb6khyfD1Yt3YiCgQWMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76\
+xFxdU6jE0NQ+Z+zEdhUTooNRaY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4\
+gwQco1KRMDSmXSMkDwIDAQAB\
+-----END PUBLIC KEY-----";
+  var encrypted = encrypt.encrypt(myString);
+  // PROCESS
+  // var encrypted = CryptoJS.AES.encrypt(myString, myPassword);
+  // var decrypted = CryptoJS.AES.decrypt(encrypted, myPassword);
+  alert(myString);
+  alert(encrypted);
+  // alert(decrypted.toString(CryptoJS.enc.Utf8));
+  // document.getElementById("demo0").innerHTML = myString;
+  // document.getElementById("demo1").innerHTML = encrypted;
+  // document.getElementById("demo2").innerHTML = decrypted;
+  // document.getElementById("demo3").innerHTML = decrypted.toString(CryptoJS.enc.Utf8);
 }
 
 
@@ -418,176 +448,176 @@ for (let i = 0; i < numOfElements; i++) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 var patientContract = web3.eth.contract([
-  {
-    "inputs": [
-      {
-        "name": "bhagwaanAddrs",
-        "type": "address"
-      }
-    ],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "constructor"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "kill",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "doc",
-        "type": "address"
-      },
-      {
-        "name": "encryptedKey",
-        "type": "bytes32"
-      }
-    ],
-    "name": "giveAccess",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "doc",
-        "type": "address"
-      }
-    ],
-    "name": "revokeAccess",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "doc",
-        "type": "address"
-      },
-      {
-        "name": "encryptedKey",
-        "type": "bytes32"
-      }
-    ],
-    "name": "updateKey",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getAllowedDocsNum",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "i",
-        "type": "uint256"
-      }
-    ],
-    "name": "getAllowedDocByIndex",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "doc",
-        "type": "address"
-      }
-    ],
-    "name": "checkAllowed",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "hashvalue",
-        "type": "bytes32"
-      }
-    ],
-    "name": "pushHash",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getNumPrescriptions",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "doc",
-        "type": "address"
-      }
-    ],
-    "name": "getPubKey",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  }
-]);
+    {
+      "inputs": [
+        {
+          "name": "bhagwaanAddrs",
+          "type": "address"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "kill",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "doc",
+          "type": "address"
+        },
+        {
+          "name": "encryptedKey",
+          "type": "string"
+        }
+      ],
+      "name": "giveAccess",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "doc",
+          "type": "address"
+        }
+      ],
+      "name": "revokeAccess",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "doc",
+          "type": "address"
+        },
+        {
+          "name": "encryptedKey",
+          "type": "string"
+        }
+      ],
+      "name": "updateKey",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getAllowedDocsNum",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "i",
+          "type": "uint256"
+        }
+      ],
+      "name": "getAllowedDocByIndex",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "doc",
+          "type": "address"
+        }
+      ],
+      "name": "checkAllowed",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "hashvalue",
+          "type": "bytes32"
+        }
+      ],
+      "name": "pushHash",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getNumPrescriptions",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "doc",
+          "type": "address"
+        }
+      ],
+      "name": "getPubKey",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]);
 var patient = patientContract.at(contractAddress);//change to contract address
 console.log("patient contract");
 console.log(patient);
