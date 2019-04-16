@@ -3,7 +3,7 @@ pragma solidity 0.5.3;
 contract Bhagwaan{
 
     address govt;
-    mapping(address => bytes32) pubKeyDoctor;
+    mapping(address => string) pubKeyDoctor;
     mapping(address => bool) isDoctor;
     // address[] public Doctors;
 
@@ -19,18 +19,18 @@ contract Bhagwaan{
         return isDoctor[doc];
     }
 
-    function addDoc(address doc, bytes32 pubKey) public {
+    function addDoc(address doc, string memory pubKey) public {
         // require(tx.origin==govt);
         isDoctor[doc] = true;
         setPubKey(doc, pubKey);
     }
 
-    function getPubKey(address doc) public view returns(bytes32){
+    function getPubKey(address doc) public view returns(string memory){
         require(checkDoc(doc));
         return pubKeyDoctor[doc];
     }
 
-    function setPubKey(address doc, bytes32 docPub) private{
+    function setPubKey(address doc, string memory docPub) private{
         // require(msg.sender==govt);
         require(checkDoc(doc));
         pubKeyDoctor[doc] = docPub;

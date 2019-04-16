@@ -22,7 +22,7 @@ contract DoctorGen{
     return contracts.length;
   }
 
-  function newDoctor(address docAcc, bytes32 pubKey) public returns (address newContract){
+  function newDoctor(address docAcc, string memory pubKey) public returns (address newContract){
     require(msg.sender == govt,"not government");
     bool userFound = false;
     for (uint i=0; i<contractUsers.length; i++) {
@@ -50,7 +50,7 @@ contract Doctor {
     //Address of the school administrator
     address user;
     mapping(address => bool) isPatient;
-    mapping(address => bytes32) patientKeys;
+    mapping(address => string) patientKeys;
     address[] myPatients;
 
     constructor(address docAcc) public payable{
@@ -70,7 +70,7 @@ contract Doctor {
         my_a.pushHash(hashvalue);
     }
 
-    function addPatient(address patient, bytes32 encryptedKey) public{
+    function addPatient(address patient, string memory encryptedKey) public{
         require(!isPatient[patient], "patient already added.");
         myPatients.push(patient);
         isPatient[patient] = true;
@@ -82,7 +82,7 @@ contract Doctor {
         isPatient[patient] = false;
     }
 
-    function updatePatientKey(address patient, bytes32 keyValue) public{
+    function updatePatientKey(address patient, string memory keyValue) public{
         require(msg.sender == patient, "Only patient can update key value in doc.");
         require(isPatient[patient], "patient does not exists.");
         patientKeys[patient] = keyValue;
@@ -97,7 +97,7 @@ contract Doctor {
         return myPatients[i];
     }
 
-    function getPatientKey(address patAddress) public returns(bytes32){
+    function getPatientKey(address patAddress) public view returns(string memory){
         return patientKeys[patAddress];
     }
 }

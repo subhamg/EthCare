@@ -7,8 +7,8 @@ import "./Bhagwaan.sol";
 // }
 
 contract AbstractDoctor {
-    function addPatient(address, bytes32) public;
-    function updatePatientKey(address, bytes32) public;
+    function addPatient(address, string memory) public;
+    function updatePatientKey(address, string memory) public;
     function removePatient(address) public;
 }
 
@@ -71,7 +71,7 @@ contract Patient {
     }
 
 
-    function giveAccess(address doc, bytes32 encryptedKey) public {
+    function giveAccess(address doc, string memory encryptedKey) public {
         // require(msg.sender==user);
         // Bhagwaan a = Bhagwaan(bhag);
         // require(a.checkDoc(doc));
@@ -91,7 +91,7 @@ contract Patient {
         // encryptedKeys[doc] = 0;
     }
 
-    function updateKey(address doc, bytes32 encryptedKey) public{
+    function updateKey(address doc, string memory encryptedKey) public{
         require(msg.sender == user, "Only patient can do it.");
         require(checkAllowed(doc));
         AbstractDoctor doctor = AbstractDoctor(doc);
@@ -120,11 +120,11 @@ contract Patient {
         return prescription.length;
     }
 
-    function getPubKey(address doc) public view returns(bytes32) {
+    function getPubKey(address doc) public view returns(string memory) {
         // require(a.checkDoc(doc));
         return a.getPubKey(doc);
     }
-    // function getRecords(address patient) public return(string){
+    // function getRecords(address patient) public return(string memory){
     //
     // }
 
