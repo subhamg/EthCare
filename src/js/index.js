@@ -398,6 +398,7 @@ var doctorContract = web3.eth.contract([
   ]);
 var doctor = doctorContract.at(docContractAddress);//change to contract address
 console.log("doctor contract");
+console.log("doccocntract addres - "+docContractAddress);
 console.log(doctor);
 
 //
@@ -409,11 +410,63 @@ function givePresciption()
   // alert(data);
   // alert(patientId);
 
+  // alert(docContractAddress);
+  encryptedKey = doctor.getPatientKey(patientId);
+
+  // var fs = require('fs');
+  // var textByLine = fs.readFileSync('pubkey.pub').toString();
+
+  // var fileObject = new File([""], "pubkey.pub", {type: "text/plain"});
+  // var reader = new FileReader();
+//
+  // reader.readAsText(fileObject);
+  // var pubkey = reader.result;
+  // alert(fileObject.type);
+  // alert(pubkey)
+
+
+  var decrypt = new JSEncrypt();
+  //TODO read private key from file
+  var privKey = "-----BEGIN RSA PRIVATE KEY-----\
+MIICXQIBAAKBgQDlOJu6TyygqxfWT7eLtGDwajtNFOb9I5XRb6khyfD1Yt3YiCgQ\
+WMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76xFxdU6jE0NQ+Z+zEdhUTooNR\
+aY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4gwQco1KRMDSmXSMkDwIDAQAB\
+AoGAfY9LpnuWK5Bs50UVep5c93SJdUi82u7yMx4iHFMc/Z2hfenfYEzu+57fI4fv\
+xTQ//5DbzRR/XKb8ulNv6+CHyPF31xk7YOBfkGI8qjLoq06V+FyBfDSwL8KbLyeH\
+m7KUZnLNQbk8yGLzB3iYKkRHlmUanQGaNMIJziWOkN+N9dECQQD0ONYRNZeuM8zd\
+8XJTSdcIX4a3gy3GGCJxOzv16XHxD03GW6UNLmfPwenKu+cdrQeaqEixrCejXdAF\
+z/7+BSMpAkEA8EaSOeP5Xr3ZrbiKzi6TGMwHMvC7HdJxaBJbVRfApFrE0/mPwmP5\
+rN7QwjrMY+0+AbXcm8mRQyQ1+IGEembsdwJBAN6az8Rv7QnD/YBvi52POIlRSSIM\
+V7SwWvSK4WSMnGb1ZBbhgdg57DXaspcwHsFV7hByQ5BvMtIduHcT14ECfcECQATe\
+aTgjFnqE/lQ22Rk0eGaYO80cc643BXVGafNfd9fcvwBMnk0iGX0XRsOozVt5Azil\
+psLBYuApa66NcVHJpCECQQDTjI2AQhFc1yRnCU/YgDnSpJVm1nASoRUnU8Jfm3Oz\
+uku7JUXcVpt08DFSceCEX9unCuMcT72rAQlLpdZir876\
+-----END RSA PRIVATE KEY-----"
+  // var pubkey = document.getElementById("prescription").value();
+  pubKey = "-----BEGIN PUBLIC KEY-----\
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlOJu6TyygqxfWT7eLtGDwajtN\
+FOb9I5XRb6khyfD1Yt3YiCgQWMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76\
+xFxdU6jE0NQ+Z+zEdhUTooNRaY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4\
+gwQco1KRMDSmXSMkDwIDAQAB\
+-----END PUBLIC KEY-----";
+  decrypt.setPrivateKey(privKey);
+  var symKey = decrypt.decrypt(encryptedKey);
+
+  // var encrypted = encrypt.encrypt(myString);
+  // PROCESS
+  var hashValue = CryptoJS.MD5(data);
+  var encryptedData = CryptoJS.AES.encrypt(data, symKey);
+
+  document.getElementById("prescription").value = encryptedData;
+  console.log('patientid - '+patientId);
+  console.log('hashvalue - '+hashValue.toString());
+  console.log('from doc address - '+doctorAddress);
+  doctor.commitprescription(patientId, hashValue.toString(), {from:doctorAddress,gas:3000000});
 
   //------------------------------------------------------------------------
-  // Akash: Ajax event to server 
+  // Akash: Ajax event to server
   $.ajax({
-      data: {patientName: patientId, doctorName: doctorAddress, prescription: data},
+      data: {patientName: patientId, doctorName: doctorAddress, prescription: encryptedData.toString()},
       url: './addPrescription.php',
       method: 'POST',
       success: function(msg) {
@@ -423,30 +476,7 @@ function givePresciption()
   //--------------------------------------------------------------------------
 
 
-
-
-  alert(docContractAddress);
-  encryptedKey = doctor.getPatientKey(patientId);
-  var pubKey = read("pubkey.pub");
-  alert(pubKey);
-
-
-  var myString   = "https://www.titanesmedellin.com/";
-  var myPassword = "myPassword";
-  var encrypt = new JSEncrypt();
-  // var pubkey = document.getElementById("prescription").value();
-  pubKey = "-----BEGIN PUBLIC KEY-----\
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlOJu6TyygqxfWT7eLtGDwajtN\
-FOb9I5XRb6khyfD1Yt3YiCgQWMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76\
-xFxdU6jE0NQ+Z+zEdhUTooNRaY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4\
-gwQco1KRMDSmXSMkDwIDAQAB\
------END PUBLIC KEY-----";
-  var encrypted = encrypt.encrypt(myString);
-  // PROCESS
-  // var encrypted = CryptoJS.AES.encrypt(myString, myPassword);
   // var decrypted = CryptoJS.AES.decrypt(encrypted, myPassword);
-  alert(myString);
-  alert(encrypted);
   // alert(decrypted.toString(CryptoJS.enc.Utf8));
   // document.getElementById("demo0").innerHTML = myString;
   // document.getElementById("demo1").innerHTML = encrypted;
@@ -455,14 +485,16 @@ gwQco1KRMDSmXSMkDwIDAQAB\
 }
 
 
+// console.log('reached 484');
+if(typeof doctorAddress !== "undefined"){
+  var numOfElements = doctor.getAllowedPatientsNum();
+  for (let i = 0; i < numOfElements; i++) {
+    var elem = doctor.getAllowedPatientByIndex(i);
+    document.getElementById("patAddresses").innerHTML += '<li class="list-group-item" ><button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button>' +elem +'</li>';
 
-var numOfElements = doctor.getAllowedPatientsNum();
-for (let i = 0; i < numOfElements; i++) {
-  var elem = doctor.getAllowedPatientByIndex(i);
-  document.getElementById("patAddresses").innerHTML += '<li class="list-group-item" ><button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button>' +elem +'</li>';
-
+  }
 }
-
+// console.log('reached 491');
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 var patientContract = web3.eth.contract([
@@ -636,6 +668,7 @@ var patientContract = web3.eth.contract([
       "type": "function"
     }
   ]);
+console.log('loading patient contract');
 var patient = patientContract.at(contractAddress);//change to contract address
 console.log("patient contract");
 console.log(patient);
@@ -645,11 +678,18 @@ console.log(patient);
 function giveAcess(){
   var doc1Address = document.getElementById("gadoctor-address").value;
   var key = document.getElementById("key").value;
-  console.log('maa kichut');
+  // console.log('maa kichut');
   console.log(patientAddress);
   console.log(doc1Address);
   console.log(key);
-  patient.giveAccess(doc1Address,key,{from:patientAddress, gas:3000000});
+
+  var pubKey = patient.getPubKey(doc1Address);
+  var encrypt = new JSEncrypt();
+  encrypt.setPublicKey(pubKey);
+  var encrypted = encrypt.encrypt(key);
+
+  console.log(encrypted);
+  patient.giveAccess(doc1Address,encrypted,{from:patientAddress, gas:3000000});
 
 
 
@@ -668,11 +708,33 @@ function giveAcess(){
 }
 
 function revokeAddress(){
-  var docAddress = document.getElementById("revokeAddress").value;
+  var docAddress = document.getElementById("revokeAddressid").value;
+  var newKey = document.getElementById("newkey").value;
   console.log('revokedone');
   console.log(patientAddress);
-  console.log(docAddress);
+  console.log(docContractAddress);
+  console.log(newKey);
   patient.revokeAccess(docAddress,{from:patientAddress, gas:3000000});
+
+  var numOfElements = patient.getAllowedDocsNum();
+  // console.log('allowed docs - '+numOfElements);
+  for (let i = 0; i < numOfElements; i++) {
+    var elem = patient.getAllowedDocByIndex(i);
+    console.log(elem);
+
+    var pubKey = patient.getPubKey(elem);
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey(pubKey);
+    var encryptedKey = encrypt.encrypt(newKey);
+
+    patient.updateKey(elem, encryptedKey,{from:patientAddress, gas:3000000});
+    // console.log('found this');
+    // console.log(elem);
+    // console.log('khatam bc');
+    // document.getElementById("docAddresses").innerHTML += '<li class="list-group-item" >' +elem +'</li>';
+    // if (patient.checkAllowed(elem)) {
+    // }
+  }
 
   // Akash: Ajax event to server for executing script addPatient.sh
     $.ajax({
@@ -685,13 +747,17 @@ function revokeAddress(){
     });
 }
 
-
-var numOfElements = patient.getAllowedDocsNum();
-console.log('allowed docs - '+numOfElements);
-for (let i = 0; i < numOfElements; i++) {
-  var elem = patient.getAllowedDocByIndex(i);
-  console.log('found this');
-  console.log(elem);
-  console.log('khatam bc');
-  document.getElementById("docAddresses").innerHTML += '<li class="list-group-item" >' +elem +'</li>';
+if(typeof patientAddress !== "undefined"){
+  var numOfdocElements = patient.getAllowedDocsNum();
+  console.log('allowed docs - '+numOfdocElements);
+  for (let i = 0; i < numOfdocElements; i++) {
+    var elem = patient.getAllowedDocByIndex(i);
+    console.log('found this');
+    console.log(elem);
+    console.log('khatam bc');
+    // if (patient.checkAllowed(elem)) {
+      document.getElementById("docAddresses").innerHTML += '<li class="list-group-item" >' +elem +'</li>';
+    // }
+  }
 }
+

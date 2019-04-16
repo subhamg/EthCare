@@ -75,6 +75,7 @@ contract Patient {
         // require(msg.sender==user);
         // Bhagwaan a = Bhagwaan(bhag);
         // require(a.checkDoc(doc));
+        require(isAllowed[doc]==false);
         isAllowed[doc] = true;
         allowed.push(doc);
         AbstractDoctor doctor = AbstractDoctor(doc);
