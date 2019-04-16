@@ -632,6 +632,21 @@ function giveAcess(){
   console.log(doc1Address);
   console.log(key);
   patient.giveAccess(doc1Address,key,{from:patientAddress, gas:3000000});
+
+
+
+  // Akash: Ajax event to server for executing script addPatient.sh
+
+  $.ajax({
+      data: {patientName: patientAddress, doctorName: doc1Address},
+      url: './giveDoctorAccessToPatient.php',
+      method: 'POST',
+      success: function(msg) {
+          alert('Access given in database!');
+      }
+  });
+
+
 }
 
 function revokeAddress(){
@@ -660,5 +675,5 @@ for (let i = 0; i < numOfElements; i++) {
   console.log('found this');
   console.log(elem);
   console.log('khatam bc');
-  document.getElementById("vdoctor-address").innerHTML = elem;
+  document.getElementById("docAddresses").innerHTML += '<li class="list-group-item" >' +elem +'</li>';
 }
