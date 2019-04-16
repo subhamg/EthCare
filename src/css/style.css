@@ -1,5 +1,5 @@
 .navigation {
-    width: 50%;
+    width: 60%;
     margin: 0 auto;
     text-align: center;
     margin-top: 2%;
@@ -33,4 +33,14 @@ h1 {
 
 .login-button {
     width: 80px;
+}
+
+
+.form-group {
+   
+    width: 40%;
+}
+
+.form-control {
+    width: 100% !important;
 }
