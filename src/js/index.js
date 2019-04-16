@@ -640,6 +640,16 @@ function revokeAddress(){
   console.log(patientAddress);
   console.log(docAddress);
   patient.revokeAccess(docAddress,{from:patientAddress, gas:3000000});
+
+  // Akash: Ajax event to server for executing script addPatient.sh
+    $.ajax({
+        data: {patientName: patientAddress, doctorName: docAddress},
+        url: './revokeDoctorAccessFromPatient.php',
+        method: 'POST',
+        success: function(msg) {
+            alert('Revoked from database!');
+        }
+    });
 }
 
 
