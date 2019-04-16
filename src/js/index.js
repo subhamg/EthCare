@@ -5,6 +5,7 @@
   // set the provider you want from Web3.providers
 web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:6545"));
 //}
+var SYMKEY;
 
 web3.eth.defaultAccount = web3.eth.accounts[0];
 var patientGenContract = web3.eth.contract([
@@ -64,7 +65,7 @@ var patientGenContract = web3.eth.contract([
   ]);
 
 var patientGen = patientGenContract.at('0xf72B21Aa33B3e5925074880A81Ef0DCBA8216E3b');
-console.log('patientGen');
+console.log('patientGen');1
 console.log(patientGen);
 
 var doctorGenContract = web3.eth.contract([
@@ -680,6 +681,7 @@ console.log(patient);
 function giveAcess(){
   var doc1Address = document.getElementById("gadoctor-address").value;
   var key = document.getElementById("key").value;
+  SYMKEY = key;
   // console.log('maa kichut');
   console.log(patientAddress);
   console.log(doc1Address);
@@ -712,6 +714,7 @@ function giveAcess(){
 function revokeAddress(){
   var docAddress = document.getElementById("revokeAddressid").value;
   var newKey = document.getElementById("newkey").value;
+  SYMKEY = newKey;
   console.log('revokedone');
   console.log(patientAddress);
   console.log(docContractAddress);
