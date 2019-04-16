@@ -442,7 +442,8 @@ gwQco1KRMDSmXSMkDwIDAQAB\
 var numOfElements = doctor.getAllowedPatientsNum();
 for (let i = 0; i < numOfElements; i++) {
   var elem = doctor.getAllowedPatientByIndex(i);
-  document.getElementById("patient-address").innerHTML = elem;
+  document.getElementById("patAddresses").innerHTML += '<li class="list-group-item" ><button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button>' +elem +'</li>';
+
 }
 
 
