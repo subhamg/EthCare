@@ -1,9 +1,9 @@
-.container {
+/* .container {
     margin-top: 20px;
-}
+} */
 
 .row {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
     margin-top: 15px;
@@ -53,7 +53,7 @@
 
   .modal-button{
       float: right;
-      margin-top: 4%;
+      margin-top: 3%;
       
   }
 
@@ -67,4 +67,26 @@
 
   .form-control {
       width: 100% !important;
+  }
+
+  .addr{
+    display: inline;
+    float: left;
+    text-align: left;
+  }
+
+  .showAddr {
+      display: inline;
+      margin-left: 10px;
+  }
+
+  .addresses {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    padding: 5px 15px;
+border: 1px solid transparent;
+border-radius: 4px;
+width: 90%; margin-left: 5%;
+margin-top: 15px;
   }
