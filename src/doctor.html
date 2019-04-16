@@ -21,14 +21,28 @@
                               <h3 class="panel-title">Your's Patient</h3>
                             </div>
                             <div class="panel-body">
-                                    <ul class="list-group" id="patAddresses">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                      <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="patient-address">
+                                           
+                                          </a><button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button>
+                                        </h4>
+                                      </div>
+                                      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body" id="prescription-data">                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                    <!-- <ul class="list-group" id="patAddresses">
                                             <li class="list-group-item" id="patient-address">p11<button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li>
-                                            <!-- <li class="list-group-item">Cras justo odio <button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li>
                                             <li class="list-group-item">Cras justo odio <button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li>
-                                	      <li class="list-group-item">Cras justo odio <button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li> -->
+                                            <li class="list-group-item">Cras justo odio <button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li>
+                                	      <li class="list-group-item">Cras justo odio <button class="btn btn-default prescription-btn" data-toggle1="tooltip" title="Give Prescription" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-pencil"></span></button></li> 
 
 
-                                          </ul>
+                                          </ul> -->
                             </div>
                           </div>
 

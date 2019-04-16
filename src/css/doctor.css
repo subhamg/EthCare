@@ -64,6 +64,7 @@
   .prescription-btn {
       float: right;
       padding: 2px 12px;
+      margin-top: -4.5px !important;
   }
 
   .addr{

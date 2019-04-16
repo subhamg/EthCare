@@ -210,6 +210,9 @@ function showDoctorAddress() {
   document.getElementById('doctorAddress').innerHTML = doctorAddress;
   console.log(patientAddress);
   document.getElementById('docContractAddress').innerHTML = docContractAddress;
+  document.getElementById('patientAddress').innerHTML = patientAddress;
+  document.getElementById('prescription-data').innerHTML = contractAddress; //Replace contactAddress variable with Prescription
+  //Remember to store data locally, we may lost it on redirect. 
 }
 
 //
