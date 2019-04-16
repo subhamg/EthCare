@@ -408,6 +408,23 @@ function givePresciption()
   var patientId = document.getElementById("patientId").value;
   // alert(data);
   // alert(patientId);
+
+
+  //------------------------------------------------------------------------
+  // Akash: Ajax event to server 
+  $.ajax({
+      data: {patientName: patientId, doctorName: doctorAddress, prescription: data},
+      url: './addPrescription.php',
+      method: 'POST',
+      success: function(msg) {
+          alert('Prescription added to database!');
+      }
+  });
+  //--------------------------------------------------------------------------
+
+
+
+
   alert(docContractAddress);
   encryptedKey = doctor.getPatientKey(patientId);
   var pubKey = read("pubkey.pub");
