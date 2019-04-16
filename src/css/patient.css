@@ -48,6 +48,7 @@
 
   .form-group {
       margin-left: 30px;
+      width: 40%;
   }
 
   .modal-button{
@@ -62,4 +63,8 @@
 
   #myAlert {
       display: none;
+  }
+
+  .form-control {
+      width: 100% !important;
   }

@@ -201,6 +201,8 @@ function showPatientAddress() {
   document.getElementById('patientAddress').innerHTML = patientAddress;
   console.log(patientAddress);
   document.getElementById('contractAddress').innerHTML = contractAddress;
+  document.getElementById('patient-activity').innerHTML = contractAddress; //Replace contactAddress variable with Prescription
+  
 }
 
 function showDoctorAddress() {
